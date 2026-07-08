@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from utils.paths import BASE_DIR
+from utils.path import BASE_DIR
 
 load_dotenv(BASE_DIR / ".env")
 
