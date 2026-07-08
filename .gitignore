@@ -7,3 +7,6 @@ __pycache__/
 Thumbs.db
 logs/*.log
 models/model_history/*.pkl
+*.egg-info/
+build/
+dist/
