@@ -1,0 +1,100 @@
+text,positive,negative
+"Love the new dashboard design",1,0
+"The app feels fast and smooth today",1,0
+"Great update with useful improvements",1,0
+"Really happy with the latest release",1,0
+"The interface is clean and intuitive",1,0
+"Excellent performance after the patch",1,0
+"Support answered my question quickly",1,0
+"The new feature saved me a lot of time",1,0
+"I appreciate the reliable experience",1,0
+"This version is better in every way",1,0
+"The setup was easy and painless",1,0
+"Very solid work from the team",1,0
+"I enjoy using this app every day",1,0
+"The search results are accurate and fast",1,0
+"A very polished and pleasant release",1,0
+"The new theme looks great on mobile",1,0
+"Everything works exactly as expected",1,0
+"The documentation is clear and helpful",1,0
+"I had a great onboarding experience",1,0
+"The bug fix finally solved my issue",1,0
+"Battery usage is much better now",1,0
+"The response time has improved a lot",1,0
+"This feature is genuinely useful",1,0
+"I like the simple and calm layout",1,0
+"The app feels dependable and stable",1,0
+"Nice job on the accessibility updates",1,0
+"The workflow is much more efficient now",1,0
+"I am impressed by the new release",1,0
+"Great balance between speed and clarity",1,0
+"The color palette feels fresh and modern",1,0
+"My favorite version so far",1,0
+"The import process worked without issues",1,0
+"Very happy with the quick fixes",1,0
+"A thoughtful improvement to the product",1,0
+"The charts load instantly now",1,0
+"This change made daily use easier",1,0
+"The team delivered a strong update",1,0
+"The login flow is finally reliable",1,0
+"I found the new report panel very useful",1,0
+"The overall experience feels premium",1,0
+"Smooth navigation and no lag",1,0
+"The export feature works perfectly",1,0
+"A clear step forward for the app",1,0
+"I am pleased with the new search filters",1,0
+"The design feels consistent and refined",1,0
+"Good quality and nice attention to detail",1,0
+"The latest build is stable and fast",1,0
+"A very pleasant improvement",1,0
+"I trust this app for daily work",1,0
+"The performance boost is noticeable",1,0
+"The update made the app more enjoyable",1,0
+"Terrible experience after the update",0,1
+"The app is slow and frustrating",0,1
+"I keep seeing crashes on startup",0,1
+"The interface feels messy and confusing",0,1
+"Bad release with too many bugs",0,1
+"Support never replied to my ticket",0,1
+"The feature broke my workflow",0,1
+"I am disappointed with the quality",0,1
+"The loading time is way too long",0,1
+"This version is worse than before",0,1
+"The settings page is broken again",0,1
+"I lost data after the sync attempt",0,1
+"The app keeps freezing randomly",0,1
+"Very poor performance on mobile",0,1
+"The new layout is hard to use",0,1
+"The onboarding flow is too complicated",0,1
+"The error message is not helpful",0,1
+"A buggy update ruined the experience",0,1
+"I regret installing this release",0,1
+"The search keeps returning irrelevant results",0,1
+"Battery drain is much worse now",0,1
+"The export button does nothing",0,1
+"The color contrast is hard on the eyes",0,1
+"I hit multiple problems in one session",0,1
+"The app feels unstable and unreliable",0,1
+"This patch introduced new regressions",0,1
+"The page reloads without warning",0,1
+"Not impressed by the latest changes",0,1
+"The login fails with no explanation",0,1
+"A very rough and broken experience",0,1
+"The sync process keeps timing out",0,1
+"Customer support was unhelpful",0,1
+"The dashboard shows wrong numbers",0,1
+"I am annoyed by the constant errors",0,1
+"The app is cluttered and hard to navigate",0,1
+"My data disappeared after the update",0,1
+"The new filter system is broken",0,1
+"It takes too many clicks to do simple tasks",0,1
+"The release notes did not match reality",0,1
+"This is a frustrating product now",0,1
+"The notifications arrive late or not at all",0,1
+"The app feels slower every day",0,1
+"The bug tracker is full for good reason",0,1
+"I had a bad time using this version",0,1
+"The app fails in basic scenarios",0,1
+"The reliability has dropped significantly",0,1
+"I would not recommend this build",0,1
+"The search ranking is completely off",0,1

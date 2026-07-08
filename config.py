@@ -1,10 +1,14 @@
 import os
 
-from dotenv import load_dotenv
-
 from utils.path import BASE_DIR
 
-load_dotenv(BASE_DIR / ".env")
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+if load_dotenv is not None:
+    load_dotenv(BASE_DIR / ".env")
 
 
 class Config:
