@@ -16,11 +16,10 @@ tweet-sentiment-api/
 ├── README.md
 ├── config.py
 ├── app.py
-├── setup_database.py
 ├── api/          routes.py, errors.py
 ├── ml/           model.py, training.py, evaluation.py
 ├── db/           connection.py, queries.py
-├── scripts/      load_sample_data.py, retrain_model.py, setup_cronjob.sh, data/
+├── scripts/      setup_database.py, load_sample_data.py, retrain_model.py, setup_cronjob.sh, data/
 ├── models/       sentiment_model.pkl, model_history/
 ├── logs/
 ├── reports/
@@ -62,16 +61,18 @@ MYSQL_USER=root
 MYSQL_PASSWORD=
 MYSQL_DATABASE=sentiment_db
 FLASK_DEBUG=True
-FLASK_PORT=5000
+FLASK_PORT=5050
 MODEL_PATH=models/sentiment_model.pkl
 ```
+
+Faites attention à ce que votre port ne soit pas occupé
 
 ## Base de donnees
 
 Creation de la base et de la table `tweets` :
 
 ```bash
-python setup_database.py
+python scripts/setup_database.py
 ```
 
 Sortie attendue :
@@ -101,3 +102,47 @@ mysql -u root -e "USE sentiment_db; DESCRIBE tweets;"
 La table est vide a ce stade. Le peuplement se fait via
 `scripts/load_sample_data.py`, qui charge un CSV de tweets annotes
 verse dans le repo.
+
+## API
+
+### POST /analyze
+
+Accepte un tableau JSON de chaines de caracteres et retourne un objet
+associant chaque tweet a son score de sentiment.
+
+```bash
+curl -X POST http://localhost:5000/analyze \
+  -H "Content-Type: application/json" \
+  -d '["Ce produit est incroyable !", "Quelle deception, je ne recommande pas."]'
+```
+
+```json
+{
+  "Ce produit est incroyable !": 0.82,
+  "Quelle deception, je ne recommande pas.": -0.65
+}
+```
+
+### Erreurs
+
+| Cas                              | Code | Message                                                                    |
+| -------------------------------- | ---- | -------------------------------------------------------------------------- |
+| Liste vide                       | 400  | La liste de tweets ne peut pas etre vide.                                  |
+| Corps non-liste                  | 400  | Le corps de la requete doit etre un tableau JSON de chaines de caracteres. |
+| Element non-string dans la liste | 400  | Chaque element du tableau doit etre une chaine de caracteres.              |
+| Modele absent                    | 503  | Le modele de sentiment n'est pas disponible.                               |
+
+```bash
+curl -X POST http://localhost:5000/analyze -H "Content-Type: application/json" -d '[]'
+# {"error": "La liste de tweets ne peut pas etre vide."}
+```
+
+```bash
+curl -X POST http://localhost:5000/analyze -H "Content-Type: application/json" -d '{"tweet": "test"}'
+# {"error": "Le corps de la requete doit etre un tableau JSON de chaines de caracteres."}
+```
+
+## Reentrainement du modele
+
+_A completer par Personne 3 : configuration du cronjob macOS et de
+l'equivalent Task Scheduler sous Windows pour `scripts/retrain_model.py`._
