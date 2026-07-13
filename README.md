@@ -31,6 +31,7 @@ tweet-sentiment-api/
 
 - Python 3.11+
 - MySQL 8
+- Docker + Docker Compose si vous voulez lancer MySQL en local sans installation native.
 
 ## Installation
 
@@ -55,10 +56,10 @@ copy .env.example .env    # Windows
 ```
 
 ```env
-MYSQL_HOST=localhost
+MYSQL_HOST=127.0.0.1
 MYSQL_PORT=3306
 MYSQL_USER=root
-MYSQL_PASSWORD=
+MYSQL_PASSWORD=root
 MYSQL_DATABASE=sentiment_db
 FLASK_DEBUG=True
 FLASK_PORT=5050
@@ -68,6 +69,14 @@ MODEL_PATH=models/sentiment_model.pkl
 Faites attention à ce que votre port ne soit pas occupé
 
 ## Base de donnees
+
+Avec Docker Compose, lancez MySQL localement avec la meme configuration que l'application:
+
+```bash
+docker compose up -d mysql
+```
+
+Le service expose MySQL sur `127.0.0.1:3306` et reutilise les variables du fichier `.env`.
 
 Creation de la base et de la table `tweets` :
 

@@ -1,20 +1,21 @@
 import sys
+from pathlib import Path
 
-import mysql.connector
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 from mysql.connector import Error
 
+from db.connection import get_connection
 from config import config
 
 
 def setup_database():
     connection = None
+    cursor = None
     try:
-        connection = mysql.connector.connect(
-            host=config.MYSQL_HOST,
-            port=config.MYSQL_PORT,
-            user=config.MYSQL_USER,
-            password=config.MYSQL_PASSWORD,
-        )
+        connection = get_connection()
         cursor = connection.cursor()
 
         cursor.execute(
@@ -38,11 +39,12 @@ def setup_database():
         connection.commit()
         print("Table 'tweets' prete.")
 
-        cursor.close()
     except Error as e:
         print(f"Erreur lors de l'initialisation de la base : {e}")
         sys.exit(1)
     finally:
+        if cursor is not None:
+            cursor.close()
         if connection is not None and connection.is_connected():
             connection.close()
 
