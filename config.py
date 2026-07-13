@@ -1,6 +1,6 @@
 import os
 
-from utils.path import BASE_DIR
+from utils.paths import BASE_DIR
 
 try:
     from dotenv import load_dotenv
