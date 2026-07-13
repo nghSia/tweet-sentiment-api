@@ -120,15 +120,15 @@ Accepte un tableau JSON de chaines de caracteres et retourne un objet
 associant chaque tweet a son score de sentiment.
 
 ```bash
-curl -X POST http://localhost:5000/analyze \
+curl -X POST http://localhost:5050/analyze \
   -H "Content-Type: application/json" \
-  -d '["Ce produit est incroyable !", "Quelle deception, je ne recommande pas."]'
+  -d '["Love this product !", "Terrible experience, do not recommend."]'
 ```
 
 ```json
 {
-  "Ce produit est incroyable !": 0.82,
-  "Quelle deception, je ne recommande pas.": -0.65
+  "Love this product !": 0.0369,
+  "Terrible experience, do not recommend.": -0.2229
 }
 ```
 
@@ -142,16 +142,86 @@ curl -X POST http://localhost:5000/analyze \
 | Modele absent                    | 503  | Le modele de sentiment n'est pas disponible.                               |
 
 ```bash
-curl -X POST http://localhost:5000/analyze -H "Content-Type: application/json" -d '[]'
+curl -X POST http://localhost:5050/analyze -H "Content-Type: application/json" -d '[]'
 # {"error": "La liste de tweets ne peut pas etre vide."}
 ```
 
 ```bash
-curl -X POST http://localhost:5000/analyze -H "Content-Type: application/json" -d '{"tweet": "test"}'
+curl -X POST http://localhost:5050/analyze -H "Content-Type: application/json" -d '{"tweet": "test"}'
 # {"error": "Le corps de la requete doit etre un tableau JSON de chaines de caracteres."}
 ```
 
+## Entrainement initial du modele
+
+Une fois la base peuplee (`scripts/load_sample_data.py`), lancez :
+
+```bash
+python -m ml.training
+```
+
+```
+Entrainement termine.
+  dataset_size: 99
+  train_size: 79
+  validation_size: 20
+  f1_positive: 0.381
+  f1_negative: 0.3158
+```
+
+Le modele est sauvegarde dans `models/sentiment_model.pkl`. L'ecriture
+est atomique : le pickle est ecrit dans un fichier temporaire puis
+remplace d'un coup, l'API ne peut jamais charger un modele a moitie ecrit.
+
+## Lancement de l'API
+
+```bash
+python app.py
+```
+
+L'API demarre sur le port defini par `FLASK_PORT` dans `.env` (5050 par defaut).
+
 ## Reentrainement du modele
 
-_A completer par Personne 3 : configuration du cronjob macOS et de
-l'equivalent Task Scheduler sous Windows pour `scripts/retrain_model.py`._
+### Manuel
+
+```bash
+python scripts/retrain_model.py
+```
+
+Le script reentraine le modele sur l'integralite de la table `tweets`,
+archive une copie horodatee dans `models/model_history/` et journalise
+le resultat dans `logs/retrain.log`. En cas d'echec, l'ancien modele
+reste en place.
+
+L'API n'a pas besoin d'etre redemarree : elle detecte le changement de
+date de modification du pickle et recharge le modele a la requete suivante.
+
+### Automatique — macOS / Linux (cron)
+
+```bash
+bash scripts/setup_cronjob.sh
+```
+
+Installe une entree crontab qui reentraine le modele chaque lundi a
+03h00. Le script est idempotent : le relancer remplace l'entree existante
+au lieu de la dupliquer. Verification :
+
+```bash
+crontab -l | grep retrain
+```
+
+### Automatique — Windows (Task Scheduler)
+
+Depuis un terminal cmd en adaptant le chemin du projet :
+
+```bat
+schtasks /Create /SC WEEKLY /D MON /ST 03:00 /TN "SentimentRetrain" ^
+  /TR "cmd /c cd /d C:\chemin\vers\tweet-sentiment-api && venv\Scripts\python.exe scripts\retrain_model.py"
+```
+
+Verification et suppression :
+
+```bat
+schtasks /Query /TN "SentimentRetrain"
+schtasks /Delete /TN "SentimentRetrain" /F
+```
