@@ -1,0 +1,48 @@
+{
+  "summary": {
+    "dataset_size": 99,
+    "train_size": 79,
+    "validation_size": 20,
+    "random_state": 42
+  },
+  "positive": {
+    "row_labels": [
+      "human_not_positive",
+      "human_positive"
+    ],
+    "column_labels": [
+      "ai_not_positive",
+      "ai_positive"
+    ],
+    "matrix": [
+      [
+        3,
+        7
+      ],
+      [
+        6,
+        4
+      ]
+    ]
+  },
+  "negative": {
+    "row_labels": [
+      "human_not_negative",
+      "human_negative"
+    ],
+    "column_labels": [
+      "ai_not_negative",
+      "ai_negative"
+    ],
+    "matrix": [
+      [
+        4,
+        6
+      ],
+      [
+        7,
+        3
+      ]
+    ]
+  }
+}
