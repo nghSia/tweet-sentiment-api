@@ -3,7 +3,11 @@
     "dataset_size": 99,
     "train_size": 79,
     "validation_size": 20,
-    "random_state": 42
+    "random_state": 42,
+    "train_accuracy_positive": 0.962,
+    "train_accuracy_negative": 0.962,
+    "validation_accuracy_positive": 0.55,
+    "validation_accuracy_negative": 0.55
   },
   "positive": {
     "row_labels": [
@@ -16,12 +20,12 @@
     ],
     "matrix": [
       [
-        3,
-        7
+        5,
+        5
       ],
       [
-        6,
-        4
+        4,
+        6
       ]
     ]
   },
@@ -36,12 +40,12 @@
     ],
     "matrix": [
       [
-        4,
-        6
+        6,
+        4
       ],
       [
-        7,
-        3
+        5,
+        5
       ]
     ]
   }
