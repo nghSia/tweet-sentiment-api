@@ -122,13 +122,13 @@ associant chaque tweet a son score de sentiment.
 ```bash
 curl -X POST http://localhost:5050/analyze \
   -H "Content-Type: application/json" \
-  -d '["Love this product !", "Terrible experience, do not recommend."]'
+  -d '["Great update with useful improvements", "Worst experience ever"]'
 ```
 
 ```json
 {
-  "Love this product !": 0.0369,
-  "Terrible experience, do not recommend.": -0.2229
+  "Great update with useful improvements": 0.4692,
+  "Worst experience ever": -0.0134
 }
 ```
 
